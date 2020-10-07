@@ -1,5 +1,5 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Admin BorderFM"
+title = "Demo"
 
 disableKinds = ["section", "term", "taxonomyTerm", "sitemap", "RSS"]
