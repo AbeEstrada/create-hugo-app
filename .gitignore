@@ -1,0 +1,7 @@
+.DS_Store
+/_*
+/bin
+/public
+/resources/_gen
+node_modules
+npm-debug.log*

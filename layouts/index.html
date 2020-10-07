@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    {{ $options := (dict "targetPath" "index.css" "outputStyle" "compressed") }}
+    {{ $style := resources.Get "sass/index.scss" | resources.ToCSS $options }}
+    <link rel="stylesheet" type="text/css" href="{{ $style.Permalink }}">
+    {{- block "head" . }}{{- end }}
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+    {{- block "header" . }}{{- end }}
+    {{- block "main" . }}{{- end }}
+    </div>
+    {{- block "footer" . }}{{- end }}
+    {{ $minify := (eq (getenv "HUGO_ENV") "production") }}
+    {{ $defines := dict "process.env.NODE_ENV" (cond (eq (getenv "HUGO_ENV") "production") `"production"` `"development"`) }}
+    {{ $options := dict "targetPath" "index.js" "minify" $minify "defines" $defines }}
+    {{ $jsBuild := resources.Get "js/index.jsx" | js.Build $options }}
+    <script type="text/javascript" src="{{ $jsBuild.RelPermalink }}" defer></script>
+  </body>
+</html>
